@@ -12,7 +12,7 @@ MAKECMD=make
 OSVER=$(uname)
 if [ ${OSVER:0:5} == MINGW ]; then
   XTRA_OPTS=(. -G"MinGW Makefiles")
-  MAKECMD=${OSVER:0:7}-make
+  MAKECMD=mingw32-make
 else
   XTRA_OPTS=(. -G"Unix Makefiles")
 fi
