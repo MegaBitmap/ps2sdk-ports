@@ -133,8 +133,8 @@ $FETCH libsmb2-6.2 https://github.com/sahlberg/libsmb2.git &
 
 $FETCH v1.3.18 https://github.com/lsalzman/enet.git &
 
-# Use wget to download argtable2
-wget -c --directory-prefix=build  http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz &
+$FETCH 38dab55e8d2fad66c2cdcd0fa365e97425bc35a5 https://github.com/makestuff/libargtable2.git &
+
 $FETCH v3.2.2.f25c624 https://github.com/argtable/argtable3.git &
 
 $FETCH v1.8.2 https://github.com/hyperrealm/libconfig.git &
@@ -160,9 +160,6 @@ $FETCH munt_2_7_0 https://github.com/munt/munt.git &
 # wait for fetch jobs to finish
 wait
 
-# extract argtable2
-tar -xzf build/argtable2-13.tar.gz -C build
-
 # NOTE: jsoncpp
 # "snprintf" not found in "std" namespace error may occur, so patch that out here.
 pushd build/jsoncpp
@@ -176,7 +173,7 @@ sed -i -e 's/defined _WIN32/1/' lib/getopt.c
 popd
 
 # NOTE: ARGTABLE2
-pushd build/argtable2-13
+pushd build/libargtable2
 sed -i -e 's/defined __GNU_LIBRARY__/1/' src/getopt.h
 popd
 
@@ -255,9 +252,9 @@ build_ee SDL_ttf -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DSDL2TTF_SAMPLES=OFF
 build_ee enet
 
 # Build argtable2
-CFLAGS="-Wno-implicit-function-declaration -D__GNU_LIBRARY__" build_ee argtable2-13 -DHAVE_STRINGS_H=ON -DHAVE_STDC_HEADERS=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+CFLAGS="-Wno-implicit-function-declaration -D__GNU_LIBRARY__" build_ee libargtable2 -DHAVE_STRINGS_H=ON -DHAVE_STDC_HEADERS=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 # Copy manually the argtable2.h header
-install -m644 argtable2-13/src/argtable2.h $PS2SDK/ports/include/
+install -m644 libargtable2/src/argtable2.h $PS2SDK/ports/include/
 
 build_ee argtable3 -DARGTABLE3_INSTALL_CMAKEDIR="${PS2SDK}/ports/lib/cmake/" -DARGTABLE3_REPLACE_GETOPT=OFF -DARGTABLE3_ENABLE_EXAMPLES=OFF -DARGTABLE3_ENABLE_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
