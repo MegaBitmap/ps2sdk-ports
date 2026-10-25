@@ -111,7 +111,7 @@ $FETCH 1.2.2 https://github.com/libsndfile/libsndfile.git &
 $FETCH v2.5.4 https://github.com/FluidSynth/fluidsynth.git &
 
 # SDL requires to have gsKit
-$FETCH v1.5.1 https://github.com/ps2dev/gsKit.git &
+$FETCH test-2026-10-24 https://github.com/MegaBitmap/gsKit.git &
 
 # ps2stuff is required for ps2gl
 $FETCH v1.0.0 https://github.com/ps2dev/ps2stuff.git &
